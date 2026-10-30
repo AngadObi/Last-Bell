@@ -34,7 +34,7 @@ export const contractSheet = (d) => sheetShell('Hours per week', 'Your contract.
 
 export const planSheet = (d) => {
   const ok = planTotal(d.plan) === d.contractMin;
-  return sheetShell('Your real week', 'Start, end and breaks. Tap a day to split lessons and prep.', weekEditor(d.plan, d.contractMin, state.ui.openDay), { foot: `<button class="btn" data-a="plan-save" ${ok ? '' : 'disabled'}>${ok ? 'Save my week' : 'Add up to ' + fmtShort(d.contractMin) + ' to save'}</button>` });
+  return sheetShell('Your real week', 'Per day: lessons and work outside class. Break and start time are secondary.', weekEditor(d.plan, d.contractMin, state.ui.openDay), { foot: `<button class="btn" data-a="plan-save" ${ok ? '' : 'disabled'}>${ok ? 'Save my week' : 'Add up to ' + fmtShort(d.contractMin) + ' to save'}</button>` });
 };
 
 export const regionSheet = (d) => sheetShell('Where I teach', 'Holidays and public holidays follow your region.', `

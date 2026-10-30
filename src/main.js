@@ -86,6 +86,18 @@ const afterPlan = () => (sh() && sh().name === 'plan' ? render() : saveDraft({ p
 function writeSettings(patch) { return state.phase === 'app' ? saveSettings(patch) : saveDraft(patch); }
 const curSettings = () => (state.phase === 'app' ? state.settings : draftSettings());
 
+// A day is lessons + outside-class work + break. The end time follows from them.
+function dayParts(p) {
+  const w = workMin(p);
+  const les = Math.min(p.lessonMin || 0, w);
+  return { les, prep: w - les, brk: p.breakMin || 0 };
+}
+function setDayParts(p, { les, prep, brk }) {
+  const total = Math.min(les + prep + brk, 23 * 60 + 59 - toMin(p.start));
+  p.lessonMin = les;
+  p.breakMin = brk;
+  p.end = fromMin(toMin(p.start) + total);
+}
 function fixPlanDay(p) {
   const w = workMin(p);
   if (p.lessonMin > w) p.lessonMin = w;
@@ -113,10 +125,12 @@ const A = {
   'open-day': (el) => ui({ openDay: state.ui.openDay === Number(el.dataset.v) ? null : Number(el.dataset.v) }),
   'plan-step': (el) => {
     const p = planTarget()[el.dataset.day]; const f = el.dataset.f; const d = Number(el.dataset.v);
-    p[f] = f === 'breakMin' ? clamp((p[f] || 0) + d, 0, 120) : clamp((p[f] || 0) + d, 0, workMin(p));
-    fixPlanDay(p); afterPlan();
+    const x = dayParts(p);
+    const key = { lessonMin: 'les', prepMin: 'prep', breakMin: 'brk' }[f];
+    x[key] = clamp(x[key] + d, 0, f === 'breakMin' ? 120 : 14 * 60);
+    setDayParts(p, x); afterPlan();
   },
-  'plan-add': (el) => { const p = planTarget()[el.dataset.v]; Object.assign(p, { on: true, start: '09:00', end: '12:30', breakMin: 0, lessonMin: 0 }); afterPlan(); },
+  'plan-add': (el) => { const p = planTarget()[el.dataset.v]; Object.assign(p, { on: true, start: '09:00', end: '12:30', breakMin: 0, lessonMin: 120 }); afterPlan(); },
   'plan-off': (el) => { planTarget()[el.dataset.day].on = false; ui({ openDay: null }); afterPlan(); },
   'plan-save': () => { saveSettings({ plan: sh().plan }); closeSheet(); toast('Your week is saved.'); },
   tone: (el) => saveDraft({ tone: el.dataset.v }),
@@ -248,7 +262,7 @@ const A = {
 const C = {
   region: (el) => saveDraft({ region: el.value }),
   plan: (el) => {
-    const p = planTarget()[el.dataset.day]; p[el.dataset.f] = el.value || p[el.dataset.f]; fixPlanDay(p); afterPlan();
+    const p = planTarget()[el.dataset.day]; if (!el.value) return afterPlan(); const x = dayParts(p); p.start = el.value; setDayParts(p, x); afterPlan();
   },
   'log-time': (el) => upd({ [el.dataset.f]: el.value }),
   'log-date': (el) => el.value && upd({ date: el.value }),

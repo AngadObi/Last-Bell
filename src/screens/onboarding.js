@@ -70,23 +70,18 @@ export function weekEditor(plan, contractMin, openDay) {
     const les = Math.min(p.lessonMin || 0, w);
     const prep = w - les;
     const open = openDay === n;
-    return `<div class="card mt8" style="padding:10px 12px 4px">
-      <div class="row" style="gap:5px">
-        <div class="title" style="font-size:28px;width:46px">${lab}</div>
-        <input class="time" type="time" value="${p.start}" data-c="plan" data-day="${n}" data-f="start" aria-label="${lab} start">
-        <span class="muted" style="font-size:13px;font-weight:700">to</span>
-        <input class="time" type="time" value="${p.end}" data-c="plan" data-day="${n}" data-f="end" aria-label="${lab} end">
-        <div class="title grow" style="font-size:22px;text-align:right;white-space:nowrap">${fmtShort(w)}</div>
-      </div>
-      <div style="display:flex;height:10px;border-radius:5px;overflow:hidden;margin-top:8px;background:#F3E2B8">
+    const step = (f, v, label, val, w) => `<div class="spread" style="min-height:48px"><span style="font-size:14px;font-weight:800;display:flex;align-items:center;gap:6px">${label}</span><span class="row"><button class="round sm" data-a="plan-step" data-day="${n}" data-f="${f}" data-v="${-v}" aria-label="less ${f}">-</button><b style="width:${w || 84}px;text-align:center">${val}</b><button class="round sm" data-a="plan-step" data-day="${n}" data-f="${f}" data-v="${v}" aria-label="more ${f}">+</button></span></div>`;
+    return `<div class="card mt8" style="padding:10px 14px 6px">
+      <div class="spread"><div class="title" style="font-size:30px">${lab}</div><div class="title" style="font-size:24px;white-space:nowrap">${fmtShort(w)}</div></div>
+      <div style="display:flex;height:10px;border-radius:5px;overflow:hidden;margin-top:6px;background:#F3E2B8">
         <div style="width:${w ? les / w * 100 : 0}%;background:var(--lesson)"></div><div style="width:${w ? prep / w * 100 : 0}%;background:var(--prep)"></div></div>
-      <button data-a="open-day" data-v="${n}" style="display:flex;justify-content:space-between;width:100%;min-height:36px;align-items:center;border:0;background:transparent;padding:0;font-size:12px;font-weight:700;color:var(--ink3)" aria-expanded="${open}">
-        <span><i class="dot" style="background:var(--lesson)"></i> Lessons ${fmtShort(les)}</span><span><i class="dot" style="background:var(--prep)"></i> Prep and admin ${fmtShort(prep)}</span><span>Breaks ${p.breakMin} min</span></button>
-      ${open ? `<div style="border-top:1px solid var(--hair);padding:8px 0 10px">
-        <div class="spread" style="min-height:48px"><span style="font-size:14px;font-weight:800">Lessons</span><span class="row"><button class="round sm" data-a="plan-step" data-day="${n}" data-f="lessonMin" data-v="-15" aria-label="15 minutes fewer lessons">-</button><b style="width:84px;text-align:center">${fmtLong(les)}</b><button class="round sm" data-a="plan-step" data-day="${n}" data-f="lessonMin" data-v="15" aria-label="15 minutes more lessons">+</button></span></div>
-        <div class="spread" style="min-height:48px"><span style="font-size:14px;font-weight:800">Break</span><span class="row"><button class="round sm" data-a="plan-step" data-day="${n}" data-f="breakMin" data-v="-5" aria-label="5 minutes shorter break">-</button><b style="width:84px;text-align:center">${p.breakMin} min</b><button class="round sm" data-a="plan-step" data-day="${n}" data-f="breakMin" data-v="5" aria-label="5 minutes longer break">+</button></span></div>
-        <div class="spread" style="min-height:48px"><span style="font-size:14px;font-weight:800"><i class="dot" style="background:var(--prep)"></i> Prep and admin</span><b style="font-size:16px;margin-right:8px">${fmtLong(prep)}</b></div>
-        <div class="muted" style="font-size:12px;font-weight:700;line-height:1.35;padding:0 0 4px">Prep and admin is whatever is left of the day after lessons and break. You log it yourself as you go.</div>
+      ${step('lessonMin', 15, '<i class="dot" style="background:var(--lesson)"></i> Lessons', fmtLong(les))}
+      ${step('prepMin', 15, '<i class="dot" style="background:var(--prep)"></i> Outside class', fmtLong(prep))}
+      <button data-a="open-day" data-v="${n}" style="display:flex;justify-content:space-between;width:100%;min-height:40px;align-items:center;border:0;border-top:1px solid var(--hair);background:transparent;padding:0;font-size:12px;font-weight:700;color:var(--ink3)" aria-expanded="${open}"><span>${p.start} to ${p.end} · break ${p.breakMin} min</span><span style="text-decoration:underline">${open ? 'Done' : 'Times and break'}</span></button>
+      ${open ? `<div style="padding:4px 0 10px">
+        <div class="spread" style="min-height:48px"><span style="font-size:14px;font-weight:800">Starts at</span><input class="time" type="time" value="${p.start}" data-c="plan" data-day="${n}" data-f="start" aria-label="${lab} start"></div>
+        ${step('breakMin', 5, 'Break', p.breakMin + ' min')}
+        <div class="spread" style="min-height:40px"><span style="font-size:14px;font-weight:800">Ends at</span><b style="margin-right:8px">${p.end}</b></div>
         ${n > 5 ? `<button class="link" data-a="plan-off" data-day="${n}" style="color:var(--over)">Remove this day</button>` : ''}
       </div>` : ''}
     </div>`;
@@ -111,7 +106,7 @@ export function step2() {
   <div class="hdr tight" style="align-items:flex-end;padding:0 6px">
     <div class="grow" style="padding-bottom:6px"><div class="eyebrow">First day · Step 2 of 4</div>
       <h1 class="title t40" style="margin:4px 0 6px">Your real week</h1>
-      <p class="sub">Pick start, end and breaks for each day. Tap a day to split lessons and prep. The week has to add up to your contract.</p></div>
+      <p class="sub">Per day: hours of lessons and hours of work outside class. The break and start time are secondary. The week has to add up to your contract.</p></div>
     ${pose('planning', 'width:84px;height:90px;object-fit:contain;flex-shrink:0')}
   </div>
   ${weekEditor(s.plan, s.contractMin, state.ui.openDay)}`, { foot: nextFoot('Next: time off', 3, !ok, 1) });
