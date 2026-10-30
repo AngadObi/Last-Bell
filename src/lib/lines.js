@@ -3,6 +3,7 @@
 
 const P = {
   gentle: {
+    sick: ['Oh no. Rest, drink tea, and let the register be my problem.', 'I have noted it. You are not to think about school today.', 'Get well soon. Today counts as a full day, and I will keep watch.'],
     morning: ['Good morning. Take a breath before the first bell.', 'A new day. Tea first, then the timetable.', 'You have a full day ahead, so be kind to yourself in it.'],
     lessons: ['Lovely work so far. The biscuits are in the staff room.', 'You are doing well. Do take your break.', 'Halfway through, and still standing. I am proud.'],
     after: ['The bell has gone. It really is allowed to be home time.', 'Lovely work today. Now please go home.', 'The school will still be there tomorrow. I promise.'],
@@ -19,6 +20,7 @@ const P = {
     term: ['A whole term. Please rest properly before the next.'],
   },
   classic: {
+    sick: ['Noted. You are officially off sick, and I am officially on duty.', 'Rest. The marking will keep, and so will I.', 'Sick day registered. This is the one day I insist you do nothing.'],
     morning: ['The day begins. The marking does not care that you are not ready.', 'Good morning. The staff room kettle is the only reliable colleague.', 'A new day, a full timetable and a cat who is watching.'],
     lessons: ['Four hours in, and the staff room biscuits remain unvisited.', 'Lessons are in progress. Your break is not decorative.', 'Still teaching? Admirable. Have you drunk anything today?'],
     after: ['The bell has gone. I notice you have not.', 'School is over. This is the part where you leave.', 'Great effort, but needs to work on leaving the building.'],
@@ -35,6 +37,7 @@ const P = {
     term: ['That is a term. I have noted every hour, and I am not impressed.'],
   },
   strict: {
+    sick: ['Sick leave registered. You will rest. That is not a request.', 'Noted. Do not open the laptop. I will know.', 'Bed, tea, silence. The register is under control.'],
     morning: ['Good morning. The timetable is a promise, so keep it.', 'You are on time, which is the least I expect.'],
     lessons: ['Lessons in progress. Do not skip lunch, I will know.', 'Eyes on the clock. You finish at the bell, not after.'],
     after: ['It is gone the bell. I will not ask twice.', 'School is finished. Leave the building. Now.'],

@@ -19,6 +19,7 @@ export const ICON = {
   register: (z) => S('<path d="M3 6c3-1 6-1 9 1 3-2 6-2 9-1v13c-3-1-6-1-9 1-3-2-6-2-9-1z"/><path d="M12 7v13"/>', 2, z || 26),
   bell: (z) => S('<path d="M6 17h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v5z"/><path d="M10 20a2 2 0 0 0 4 0"/><path d="M12 4v1.5"/>', 2, z || 26),
   staffroom: (z) => S('<path d="M5 9h11v6a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4z"/><path d="M16 11h2a2 2 0 0 1 0 4h-2"/><path d="M8.5 4.5c0 1 1 1 1 2M12.5 4.5c0 1 1 1 1 2"/>', 2, z || 26),
+  sick: (z) => S('<path d="M14 14.500V5a2 2 0 0 0-4 0v9.500a4 4 0 1 0 4 0z"/><path d="M12 9v6"/>', 2.2, z || 24),
   pencil: (z) => S('<path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="M14 7l3 3"/><path d="M14 20h6"/>', 2.2, z || 28),
   close: (z) => S('<path d="M6 6l12 12M18 6L6 18"/>', 2.6, z || 18),
   chev: () => `<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="#9A8B74" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>`,

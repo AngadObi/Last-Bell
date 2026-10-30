@@ -60,8 +60,10 @@ export function home() {
   const working = tm.planned > 0 && !tm.off;
   const start = working ? toMin(plan.start) : 0;
   const end = working ? toMin(plan.end) : 0;
+  const sick = !!(tm.override && tm.override.kind === 'none' && tm.override.sub === 'sick');
   let moment = 'morning', poseName = 'planning';
-  if (tm.off) { moment = 'off'; poseName = 'cozy'; }
+  if (sick) { moment = 'sick'; poseName = 'cozy'; }
+  else if (tm.off) { moment = 'off'; poseName = 'cozy'; }
   else if (!working) { moment = 'weekend'; poseName = 'napping'; }
   else if (now < start) { moment = 'morning'; poseName = 'planning'; }
   else if (now <= end) { moment = 'lessons'; poseName = 'teaching'; }
@@ -80,7 +82,9 @@ export function home() {
   // Today card
   const noPlan = planTotal(s.plan) === 0;
   let todayCard = '';
-  if (planTotal(s.plan) !== s.contractMin) {
+  if (sick) {
+    todayCard = `<div class="card mx mt12" style="padding:14px 16px"><div class="eyebrow">TODAY</div><div class="title" style="font-size:36px;line-height:1.1;margin-top:2px">Sick day. Rest up.</div><div class="sub" style="margin-top:6px">It counts as a normal day, so your overtime bank is untouched. Nothing to log.</div><button class="link" data-a="sick-undo" style="padding:0;margin-top:6px">Feeling better? Undo</button></div>`;
+  } else if (planTotal(s.plan) !== s.contractMin) {
     todayCard = `<div class="card mx mt12" style="padding:14px 16px"><div class="eyebrow">ONE THING FIRST</div><div class="title" style="font-size:32px;line-height:1.1;margin-top:4px">I need your weekly hours.</div><div class="sub" style="margin-top:6px">Your week does not add up to ${fmtShort(s.contractMin)} yet. Until it does, I cannot count anything.</div><button class="btn mt12" data-a="sheet" data-v="plan">Add my weekly hours</button></div>`;
   } else if (working) {
     const left = end - now;
@@ -142,7 +146,7 @@ export function home() {
     ${noPlan ? '' : `<div class="board mx" style="margin:0 14px;z-index:2">
       <div class="spread" style="font-size:11px;font-weight:800;letter-spacing:.14em;color:#F2EBDA"><span>THIS WEEK · WEEK ${isoWeek(today)}</span><span style="font-weight:700;color:#E3DCC8">CONTRACT ${fmtShort(s.contractMin).toUpperCase()}</span></div>
       <div class="spread mt4" style="align-items:flex-end;margin-top:2px">
-        <div style="display:flex;align-items:baseline;gap:2px;font-family:'Caveat Brush',cursive;color:#FBF6EA"><span style="font-size:76px;line-height:.95">${hrs}</span><span style="font-size:30px">h${mins ? ' ' + mins : ''} logged</span></div>
+        <div style="display:flex;align-items:baseline;gap:2px;white-space:nowrap;font-family:'Caveat Brush',cursive;color:#FBF6EA"><span style="font-size:76px;line-height:.95">${hrs}</span><span style="font-size:26px;white-space:nowrap">h${mins ? ' ' + mins : ''} logged</span></div>
         <div style="text-align:right;font-family:'Caveat Brush',cursive;line-height:1"><div style="font-size:24px;color:#FBF6EA">of ${fmtShort(wk.dueEff)}</div><div style="font-size:36px;color:#F4CC55;margin-top:2px">${wk.dueEff === 0 ? 'free week' : wk.left > 0 ? fmtShort(wk.left) + ' left' : 'week done'}</div></div></div>
       <div class="chalk-bar" style="margin-top:8px"><div style="width:${pct}%"></div></div>
       <div class="spread" style="margin-top:9px"><span style="font-size:11px;font-weight:800;letter-spacing:.14em;color:#F2EBDA">OVERTIME BANK</span>
@@ -153,6 +157,7 @@ export function home() {
       <button class="btn" data-a="sheet" data-v="log" style="flex:1;min-width:0;gap:12px">${ICON.pencil()}<span style="display:flex;flex-direction:column;align-items:flex-start;line-height:1.1"><span style="font-size:18px">Log hours</span><span style="font-size:12px;font-weight:700;opacity:.9">prep, admin, parents</span></span></button>
       <button class="chip" data-a="focus" aria-label="Start a ${s.bell.focus} minute focus session" style="width:92px;height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;border-radius:18px">${ICON.bell(22)}Focus ${s.bell.focus}</button>
     </div>
+    ${working && !sick && !tm.off ? `<button class="chip" data-a="sick" style="width:calc(100% - 28px);margin:12px 14px 0;min-height:44px;gap:8px;justify-content:center;font-size:14px;font-weight:800">${ICON.sick(20)}I am sick today</button>` : ''}
     <div class="card mx mt12 row" style="gap:10px;padding:10px 14px 8px;align-items:stretch">
       <div style="width:96px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:8px"><div class="eyebrow">Day by day</div>
         <div style="display:flex;flex-direction:column;gap:3px;font-size:12px;font-weight:700;line-height:1.2;color:var(--ink2);padding-bottom:2px">

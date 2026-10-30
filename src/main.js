@@ -122,6 +122,8 @@ const A = {
   },
   'contract-save': () => { saveSettings({ contractMin: sh().value }); closeSheet(); toast('Contract updated. Check that your week still adds up.'); },
   country: (el) => saveDraft({ country: el.dataset.v, region: REGIONS[el.dataset.v][0].key }),
+  sick: () => { setDay(state.today, { kind: 'none', sub: 'sick', lessonMin: undefined }); toast('Noted. Get well soon.'); },
+  'sick-undo': () => { clearDayOverride(state.today); toast('Welcome back.'); },
   'skip-week': () => ui({ skipAsk: true }),
   'skip-cancel': () => ui({ skipAsk: false }),
   'skip-confirm': () => { ui({ skipAsk: false }); setStep(3); },
