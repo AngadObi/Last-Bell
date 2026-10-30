@@ -31,7 +31,7 @@ export function logSheet(d) {
   const tiles = CATS.map((c) => `<button class="tile ${d.cat === c.id ? 'on' : ''}" data-a="log-cat" data-v="${c.id}" style="${d.cat === c.id ? '' : ''}">${catIcon(c.id)}${esc(catName(c.id))}</button>`).join('');
   const chips = [[15, '15 min'], [30, '30 min'], [45, '45 min'], [60, '1h'], [120, '2h']].map(([m, l]) => `<button class="chip" data-a="log-set" data-v="${m}" style="flex:1;min-height:44px;padding:0 4px;${d.mode === 'duration' && d.minutes === m ? 'border:2px solid var(--prep);background:#DDE8F5' : ''}">${l}</button>`).join('');
   const dur = d.mode === 'duration' ? `
-    <div class="spread mt4"><button class="round" data-a="log-step" data-v="-15" aria-label="15 minutes less">-</button><div class="title" style="font-size:60px;text-align:center">${fmtLong(d.minutes)}</div><button class="round" data-a="log-step" data-v="15" aria-label="15 minutes more">+</button></div>
+    <div class="spread mt4"><button class="round" data-a="log-step" data-v="-15" aria-label="15 minutes less">-</button><div class="title" style="font-size:60px;text-align:center;white-space:nowrap">${fmtShort(d.minutes)}</div><button class="round" data-a="log-step" data-v="15" aria-label="15 minutes more">+</button></div>
     <div class="row mt8" style="gap:8px">${chips}</div>` : `
     <div class="row mt8" style="gap:10px;justify-content:center"><input class="time" type="time" value="${d.start}" data-c="log-time" data-f="start" aria-label="Start"><span class="muted" style="font-weight:700">to</span><input class="time" type="time" value="${d.end}" data-c="log-time" data-f="end" aria-label="End"></div>
     <div class="title center mt8" style="font-size:48px">${mins ? fmtLong(mins) : 'End is before start'}</div>`;
@@ -77,7 +77,7 @@ export function npSheet(d) {
     ${opt('none', 'No lessons that day', 'Sick, trip or school event')}</div>
   ${d.mode === 'none' ? `<div class="seg mt12">${[['sick', 'Sick'], ['trip', 'Trip'], ['event', 'School event']].map(([k, l]) => `<button class="${d.sub === k ? 'on' : ''}" data-a="np-sub" data-v="${k}">${l}</button>`).join('')}</div>` : `
   <div class="label mt16">Lessons taught</div>
-  <div class="spread mt4"><button class="round" data-a="np-step" data-v="-15" aria-label="15 minutes less">-</button><div class="title" style="font-size:60px">${fmtLong(d.lessonMin)}</div><button class="round" data-a="np-step" data-v="15" aria-label="15 minutes more">+</button></div>
+  <div class="spread mt4"><button class="round" data-a="np-step" data-v="-15" aria-label="15 minutes less">-</button><div class="title" style="font-size:60px;white-space:nowrap">${fmtShort(d.lessonMin)}</div><button class="round" data-a="np-step" data-v="15" aria-label="15 minutes more">+</button></div>
   <div class="center mt4" style="font-size:13px;font-weight:700;color:var(--ink2)">${diff === 0 ? 'Same as planned' : diff < 0 ? fmtLong(-diff) + ' fewer than planned' : fmtLong(diff) + ' more than planned'}</div>`}
   <div class="mt14" style="background:var(--cream);border-radius:14px;padding:10px 14px;font-size:13px;line-height:1.35;font-weight:700;color:var(--ink3)">A trip or school event counts as worked time. A sick day counts as planned hours, so it never shrinks your bank.</div>`;
   const foot = `<button class="btn" data-a="np-save">Update ${d.date === today ? "today's" : dayLong(d.date) + "'s"} lessons</button>${d.had ? '<div class="center"><button class="link" data-a="np-reset">Back to my timetable</button></div>' : ''}`;
@@ -135,7 +135,7 @@ export function tbSheet(d) {
   <div class="row mt8" style="gap:8px;align-items:stretch">${opts.map(dayBtn).join('')}
     <label class="chip ${isPicked ? 'on' : ''}" style="flex:1;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;line-height:1.2;padding:6px 4px;min-height:56px">${isPicked ? dayShort(d.date) + '<br>' + dayMonth(d.date) : 'Pick<br>a date'}<input type="date" min="${today}" value="${d.date}" data-c="tb-date" style="position:absolute;inset:0;opacity:0;width:100%;height:100%" aria-label="Pick a date"></label></div>
   <div class="label mt16">How much</div>
-  <div class="spread mt4"><button class="round" data-a="tb-step" data-v="-30" aria-label="30 minutes less">-</button><div class="title" style="font-size:60px">${fmtLong(minutes)}</div><button class="round" data-a="tb-step" data-v="30" aria-label="30 minutes more">+</button></div>
+  <div class="spread mt4"><button class="round" data-a="tb-step" data-v="-30" aria-label="30 minutes less">-</button><div class="title" style="font-size:60px;white-space:nowrap">${fmtShort(minutes)}</div><button class="round" data-a="tb-step" data-v="30" aria-label="30 minutes more">+</button></div>
   <div class="row mt8" style="gap:8px">${presets.map(([v, l]) => `<button class="chip" data-a="tb-set" data-v="${v}" style="flex:1;padding:0 4px;min-height:44px">${l}</button>`).join('')}</div>
   <div class="mt14" style="background:var(--cream);border-radius:14px;padding:10px 14px;font-size:14px;line-height:1.4;font-weight:700">${result}</div>`;
   const ok = m.due > 0 && avail >= 30 && minutes > 0;
