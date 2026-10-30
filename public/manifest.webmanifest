@@ -1,0 +1,16 @@
+{
+  "name": "Last Bell",
+  "short_name": "Last Bell",
+  "description": "A working-time tracker for teachers, supervised by Madam Chonk.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F9F5ED",
+  "theme_color": "#F9F5ED",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

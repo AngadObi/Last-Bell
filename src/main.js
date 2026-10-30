@@ -334,3 +334,15 @@ window.addEventListener('offline', render);
 
 renderApp();
 boot();
+
+// Installable app: the service worker keeps the shell available offline and updates itself.
+if ('serviceWorker' in navigator && window.isSecureContext) {
+  let reloaded = false;
+  const hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (reloaded || !hadController) return;
+    reloaded = true;
+    if (!state.ui.sheet) location.reload();
+  });
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').then((r) => { setInterval(() => r.update(), 3600 * 1000); }).catch(() => {}));
+}
