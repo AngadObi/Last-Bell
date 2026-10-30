@@ -135,6 +135,8 @@ export function home() {
       <div style="font-size:11px;font-weight:700;line-height:1.2;color:var(--ink2)">${d.off ? 'off' : future ? '' : fmtClock(d.logged)}</div></div>`;
   }).join('');
 
+  const sickWhy = noPlan ? 'Add your weekly hours first.' : tm.off ? 'Today is a day off.' : !working ? 'No school planned today.' : '';
+  const sickBtn = `<div style="margin:12px 14px 0"><button class="chip" ${sickWhy ? 'disabled' : 'data-a="sick"'} style="width:100%;min-height:44px;gap:8px;justify-content:center;font-size:14px;font-weight:800;${sickWhy ? 'opacity:.6;box-shadow:none' : ''}">${ICON.sick(20)}I am sick today</button>${sickWhy ? `<div class="sub center" style="font-size:12px;margin-top:4px">${sickWhy}</div>` : ''}</div>`;
   return `<div class="phone">
   <div class="scroll" style="padding-top:16px">
     <div class="hdr"><div><div class="eyebrow">${esc(dt)}</div><h1 class="title t36" style="margin-top:2px">${greet}</h1></div>
@@ -157,7 +159,7 @@ export function home() {
       <button class="btn" data-a="sheet" data-v="log" style="flex:1;min-width:0;gap:12px">${ICON.pencil()}<span style="display:flex;flex-direction:column;align-items:flex-start;line-height:1.1"><span style="font-size:18px">Log hours</span><span style="font-size:12px;font-weight:700;opacity:.9">prep, admin, parents</span></span></button>
       <button class="chip" data-a="focus" aria-label="Start a ${s.bell.focus} minute focus session" style="width:92px;height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;border-radius:18px">${ICON.bell(22)}Focus ${s.bell.focus}</button>
     </div>
-    ${working && !sick && !tm.off ? `<button class="chip" data-a="sick" style="width:calc(100% - 28px);margin:12px 14px 0;min-height:44px;gap:8px;justify-content:center;font-size:14px;font-weight:800">${ICON.sick(20)}I am sick today</button>` : ''}
+    `}${sick ? '' : sickBtn}${noPlan ? '' : `
     <div class="card mx mt12 row" style="gap:10px;padding:10px 14px 8px;align-items:stretch">
       <div style="width:96px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:8px"><div class="eyebrow">Day by day</div>
         <div style="display:flex;flex-direction:column;gap:3px;font-size:12px;font-weight:700;line-height:1.2;color:var(--ink2);padding-bottom:2px">
