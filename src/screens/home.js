@@ -139,8 +139,7 @@ export function home() {
   const sickBtn = `<div style="margin:12px 14px 0"><button class="chip" ${sickWhy ? 'disabled' : 'data-a="sick"'} style="width:100%;min-height:44px;gap:8px;justify-content:center;font-size:14px;font-weight:800;${sickWhy ? 'opacity:.6;box-shadow:none' : ''}">${ICON.sick(20)}I am sick today</button>${sickWhy ? `<div class="sub center" style="font-size:12px;margin-top:4px">${sickWhy}</div>` : ''}</div>`;
   return `<div class="phone">
   <div class="scroll" style="padding-top:16px">
-    <div class="hdr"><div><div class="eyebrow">${esc(dt)}</div><h1 class="title t36" style="margin-top:2px">${greet}</h1></div>
-      <button data-a="stars" aria-label="${wk.daysOnTime} gold stars this week" class="row" style="gap:6px;height:44px;padding:0 14px 0 10px;border:1.5px solid var(--line);border-radius:22px;background:var(--card);font-size:16px;font-weight:800;box-shadow:0 2px 0 var(--line)">${ICON.star()}${wk.daysOnTime}</button></div>
+    <div class="hdr"><div><div class="eyebrow">${esc(dt)}</div><h1 class="title t36" style="margin-top:2px">${greet}</h1></div></div>
     <div style="position:relative;height:130px;margin-top:8px">
       <div class="note" style="position:absolute;left:20px;top:26px;width:206px;transform:rotate(-1.5deg)"><div class="tape"></div><div style="position:absolute;right:-6px;top:34px;width:14px;height:14px;background:var(--note);transform:rotate(45deg)"></div>${esc(line)}</div>
       ${pose(poseName, 'position:absolute;right:18px;top:0;width:128px;height:118px;object-fit:contain')}

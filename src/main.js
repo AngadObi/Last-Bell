@@ -112,7 +112,6 @@ const A = {
   tab: (el) => ui({ tab: el.dataset.v, sheet: null, screen: null }),
   scrim: (el, ev) => { if (ev.target === el) closeSheet(); },
   close: () => closeSheet(),
-  stars: () => toast('A gold star for every day you finish on time.'),
   focus: () => { quickStart(); ui({ tab: 'bell' }); },
 
   contract: (el) => {
