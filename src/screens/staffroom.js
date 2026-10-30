@@ -3,7 +3,7 @@ import { state, CATS, catName, saveSettings } from '../lib/store.js';
 import { planTotal } from '../lib/calc.js';
 import { fmtLong, fmtShort, dayMonth, dayMonthLong, ymd, addDays } from '../lib/dates.js';
 import { TONES } from '../lib/lines.js';
-import { COUNTRIES, REGIONS, getData, periodsFor, regionLabel, buildTerms } from '../lib/holidays.js';
+import { COUNTRIES, REGIONS, getData, upcomingPublic, periodsFor, regionLabel, buildTerms } from '../lib/holidays.js';
 import { weekEditor } from './onboarding.js';
 
 const card = (rows) => `<div class="card flat mx" style="margin-top:6px">${rows}</div>`;
@@ -49,10 +49,12 @@ export function holidaysSheet(d) {
   const range = (p) => (p.from === p.to ? dayMonthLong(p.from) : `${dayMonth(p.from)} to ${dayMonthLong(p.to)}`);
   const official = list.map((p) => `<div style="border-bottom:1px solid var(--hair)"><div class="lrow" style="border:0"><button class="grow" data-a="hol-open" data-v="${p.id}" style="border:0;background:transparent;text-align:left;padding:0;min-height:56px"><span class="name" style="display:block;font-size:15px">${esc(p.name)}${p.edited ? ' <span class="pill gold" style="padding:2px 8px">Edited</span>' : ''}</span><span class="sub2">${range(p)}</span></button>${sw(!p.hidden, 'hol-toggle', p.id)}</div>
     ${d.open === p.id ? `<div class="row" style="gap:10px;padding:0 0 12px"><input class="field" type="date" value="${p.from}" data-c="hol-edit" data-id="${p.id}" data-f="from" aria-label="From"><input class="field" type="date" value="${p.to}" min="${p.from}" data-c="hol-edit" data-id="${p.id}" data-f="to" aria-label="To">${p.edited ? `<button class="chip" data-a="hol-reset" data-v="${p.id}">Official</button>` : ''}</div>` : ''}</div>`).join('');
+  const pubs = upcomingPublic(s.region, today, 99, addDays(today, 365)).map((h) => `<div class="lrow" style="min-height:56px"><span class="grow"><span class="name" style="display:block">${esc(h.name)}</span><span class="sub2">${dayMonthLong(h.date)}</span></span><span class="pill green">Always off</span></div>`).join('');
   const custom = (s.customOff || []).map((c, i) => `<div class="lrow"><span class="grow"><span class="name" style="display:block">${esc(c.name || 'Vacation')}</span><span class="sub2">${range(c)}</span></span><button class="chip" data-a="hol-del" data-v="${i}" aria-label="Delete ${esc(c.name)}" style="min-height:44px">Delete</button></div>`).join('');
-  return sheetShell('Holidays and vacation', 'Official dates from the region calendar. Switch one off if your school does it differently. Your edits never overwrite the official list.', `
+  return sheetShell('Holidays and vacation', 'School holidays and public holidays from the region calendar. Switch a school holiday off if your school does it differently. Your edits never overwrite the official list.', `
   ${custom ? `<div class="label mt14">Yours</div><div class="card flat mt6">${custom}</div>` : ''}
-  <div class="label mt14">Official</div><div class="card flat mt6">${official || '<p class="sub" style="padding:12px 0">Nothing listed for this region.</p>'}</div>`, { foot: `<button class="btn light" data-a="sheet" data-v="addoff">+ Add your own</button>` });
+  <div class="label mt14">Public holidays, next 12 months</div><div class="card flat mt6">${pubs}</div>
+  <div class="label mt14">School holidays</div><div class="card flat mt6">${official || '<p class="sub" style="padding:12px 0">Nothing listed for this region.</p>'}</div>`, { foot: `<button class="btn light" data-a="sheet" data-v="addoff">+ Add your own</button>` });
 }
 
 export function schoolDatesSheet(d) {

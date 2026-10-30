@@ -1,7 +1,8 @@
 import { addDays, diffDays, nowMinutes, toMin, weekStart, weekdayOf } from './dates.js';
 import { buildOffLookup, buildTerms, termFor } from './holidays.js';
 
-export const DEFAULT_PLAN = () => ({
+// A realistic example week (39h), used by the demo and the tests. New users start from DEFAULT_PLAN (all zero).
+export const SAMPLE_PLAN = () => ({
   1: { on: true, start: '07:45', end: '16:45', breakMin: 30, lessonMin: 330 },
   2: { on: true, start: '08:00', end: '16:30', breakMin: 30, lessonMin: 300 },
   3: { on: true, start: '08:00', end: '16:00', breakMin: 30, lessonMin: 270 },
@@ -10,6 +11,11 @@ export const DEFAULT_PLAN = () => ({
   6: { on: false, start: '09:00', end: '12:00', breakMin: 0, lessonMin: 0 },
   7: { on: false, start: '09:00', end: '12:00', breakMin: 0, lessonMin: 0 },
 });
+
+export const DEFAULT_PLAN = () => {
+  const day = (on) => ({ on, start: '08:00', end: '08:00', breakMin: 0, lessonMin: 0 });
+  return { 1: day(true), 2: day(true), 3: day(true), 4: day(true), 5: day(true), 6: day(false), 7: day(false) };
+};
 
 export const workMin = (p) => (p && p.on ? Math.max(0, toMin(p.end) - toMin(p.start) - (p.breakMin || 0)) : 0);
 export const planTotal = (plan) => [1, 2, 3, 4, 5, 6, 7].reduce((s, d) => s + workMin(plan[d]), 0);

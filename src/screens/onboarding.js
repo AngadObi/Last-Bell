@@ -3,7 +3,7 @@ import { state, draftSettings, CATS } from '../lib/store.js';
 import { fmtLong, fmtShort, dayMonthLong, dayMonth, addDays, ymd, toMin } from '../lib/dates.js';
 import { workMin, planTotal } from '../lib/calc.js';
 import { TONES } from '../lib/lines.js';
-import { COUNTRIES, REGIONS, periodsFor, getData, regionLabel } from '../lib/holidays.js';
+import { COUNTRIES, REGIONS, upcomingPublic, periodsFor, getData, regionLabel } from '../lib/holidays.js';
 
 const DAYS = [['Mon', 1], ['Tue', 2], ['Wed', 3], ['Thu', 4], ['Fri', 5], ['Sat', 6], ['Sun', 7]];
 
@@ -44,7 +44,7 @@ export function step1() {
   const regs = REGIONS[s.country];
   return wrap(`
   ${stepHead(1, 'Your contract', '', 'smug')}
-  <div class="note" style="margin:12px 6px 0;transform:rotate(-1deg)">${fmtLong(s.contractMin)} a week. In theory. Is that what your contract says?</div>
+  <div class="note" style="margin:12px 6px 0;transform:rotate(-1deg)">Contract says ${fmtShort(s.contractMin)}? Brave of them.</div>
   <div class="card mt14" style="padding:14px 16px 16px">
     <div class="eyebrow">Hours per week</div>
     <div class="spread mt8"><button class="round" data-a="contract" data-v="-30" aria-label="30 minutes less">-</button><div class="title" style="font-size:68px;white-space:nowrap">${fmtShort(s.contractMin)}</div><button class="round" data-a="contract" data-v="30" aria-label="30 minutes more">+</button></div>
@@ -117,14 +117,21 @@ export function step3() {
   const reg = getData().regions[s.region];
   const today = ymd(new Date());
   const list = periodsFor(s).filter((p) => p.to >= today && p.kind !== 'pause').slice(0, 4);
+  const pub = upcomingPublic(s.region, today, 4);
   const until = reg ? reg.coveredUntil : '';
   const mon = until ? new Date(until).toLocaleString('en-GB', { month: 'long', year: 'numeric' }) : '';
   return wrap(`
-  ${stepHead(3, 'Time off', `School holidays are already in for ${esc(regionLabel(s.region))}. Check them, change them, or add your own.`, 'cozy')}
-  <div class="card flat mt14">
+  ${stepHead(3, 'Time off', `School and public holidays are already in for ${esc(regionLabel(s.region))}. Check them, change them, or add your own.`, 'cozy')}
+  <div class="label mt14" style="padding:0 6px">School holidays</div>
+  <div class="card flat mt6">
     ${list.map((p) => `<div class="lrow" style="min-height:60px"><div class="grow"><div class="name" style="font-size:16px">${esc(p.name)}</div><span class="sub2">${p.from === p.to ? dayMonthLong(p.from) : dayMonth(p.from) + ' to ' + dayMonthLong(p.to)}</span></div><span class="pill green">Official</span></div>`).join('')}
     <div class="lrow" style="min-height:60px"><div class="grow"><div class="name" style="font-size:16px">Later years</div><span class="sub2">Official dates run until ${mon}</span></div><span class="pill sand">Not out yet</span></div>
     <p class="sub" style="font-size:13px;padding:10px 0 12px">Anything not published yet is marked, not guessed. Dates come from ${esc(reg ? reg.source : 'the official calendar')}.</p>
+  </div>
+  <div class="label mt14" style="padding:0 6px">Public holidays, always off</div>
+  <div class="card flat mt6">
+    ${pub.map((h) => `<div class="lrow" style="min-height:56px"><div class="grow"><div class="name" style="font-size:16px">${esc(h.name)}</div><span class="sub2">${dayMonthLong(h.date)}</span></div><span class="pill green">Official</span></div>`).join('')}
+    <p class="sub" style="font-size:13px;padding:10px 0 12px">The next few are shown. The rest of the year is in too.</p>
   </div>
   <button class="chip mt12" style="width:100%;border-style:dashed;box-shadow:none;color:var(--ink3);min-height:48px" data-a="sheet" data-v="addoff">+ Add your own holiday or vacation</button>
   <p class="sub center mt14" style="font-size:13px">Moving countries? Switch region any time in the staffroom.</p>`, { foot: nextFoot('Next: how I should talk to you', 4, false, 2) });

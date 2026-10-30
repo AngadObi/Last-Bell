@@ -1,4 +1,4 @@
-import { addDays, ymd } from './dates.js';
+import { addDays, ymd, parse } from './dates.js';
 import bundled from '../data/holidays.json' with { type: 'json' };
 
 let data = bundled;
@@ -125,4 +125,15 @@ export function termFor(settings, date) {
   let cur = null;
   for (const t of terms) if (t.from <= date) cur = t;
   return cur;
+}
+
+// Public holidays from `from` onwards (next two years), weekdays only, sorted.
+export function upcomingPublic(regionKey, from, limit = 99, untilDate = null) {
+  const y = Number(from.slice(0, 4));
+  const out = [];
+  for (const yy of [y, y + 1]) for (const h of publicHolidays(regionKey, yy)) {
+    const wd = parse(h.date).getDay();
+    if (h.date >= from && wd !== 0 && wd !== 6 && (!untilDate || h.date <= untilDate)) out.push(h);
+  }
+  return out.sort((a, b) => (a.date < b.date ? -1 : 1)).slice(0, limit);
 }

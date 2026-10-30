@@ -1,4 +1,4 @@
-import { DEFAULT_PLAN, makeCtx } from './calc.js';
+import { DEFAULT_PLAN, SAMPLE_PLAN, makeCtx } from './calc.js';
 import { addDays, nowMinutes, weekStart, ymd } from './dates.js';
 import { makeDemoBackend } from './backend-demo.js';
 
@@ -64,7 +64,7 @@ export function catName(id) {
 export function draftSettings() {
   if (!state.draft) {
     const saved = readDraft();
-    state.draft = saved && saved.settings ? saved : { settings: defaultSettings(), step: 'intro' };
+    state.draft = saved && saved.settings && saved.v === 2 ? saved : { v: 2, settings: defaultSettings(), step: 'intro' };
     state.draft.settings = { ...defaultSettings(), ...state.draft.settings };
     state.draft.settings.plan = { ...DEFAULT_PLAN(), ...state.draft.settings.plan };
   }
@@ -86,7 +86,7 @@ export function setStep(step) {
 
 // ---- boot ----
 export async function boot(b) {
-  backend = b || (DEMO ? makeDemoBackend({ seeded: !params.has('empty'), today: state.today, initialDoc: { settings: { ...defaultSettings(), onboarded: true, startDate: addDays(weekStart(state.today), -35) }, days: {}, ackTerms: {}, createdAt: Date.now(), email: 'you@school.de' } }) : (await import('./backend-firebase.js')).backend);
+  backend = b || (DEMO ? makeDemoBackend({ seeded: !params.has('empty'), today: state.today, initialDoc: { settings: { ...defaultSettings(), plan: SAMPLE_PLAN(), onboarded: true, startDate: addDays(weekStart(state.today), -35) }, days: {}, ackTerms: {}, createdAt: Date.now(), email: 'you@school.de' } }) : (await import('./backend-firebase.js')).backend);
   draftSettings();
   state.ui.onboard = state.draft.step === 'account' || state.draft.step === 'signin' ? state.draft.step : state.draft.step || 'intro';
   backend.start(async (user) => {

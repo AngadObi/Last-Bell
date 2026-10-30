@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { DEFAULT_PLAN, makeCtx, dayModel, weekModel, weekSummary, bankBefore, planTotal, currentTerm } from '../src/lib/calc.js';
+import { SAMPLE_PLAN as DEFAULT_PLAN, makeCtx, dayModel, weekModel, weekSummary, bankBefore, planTotal, currentTerm } from '../src/lib/calc.js';
 import { easter, publicHolidays, buildTerms, buildOffLookup } from '../src/lib/holidays.js';
 import { fmtLong, fmtShort, weekStart, addDays } from '../src/lib/dates.js';
 
