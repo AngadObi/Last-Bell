@@ -39,7 +39,7 @@ export function logSheet(d) {
   ${lessons ? `<div class="row mt8" style="width:max-content;max-width:100%;gap:6px;background:#DDE8DD;color:#3F5C48;border-radius:10px;padding:5px 10px;font-size:13px;font-weight:800">${ICON.check(14)}Lessons ${d.date === today ? 'today' : 'that day'}, ${fmtShort(lessons)}, are already in</div>` : ''}
   <div class="label mt16">What kind of work</div>
   <div class="grid3 mt8">${tiles}</div>
-  <div class="spread mt16"><span class="label">How much</span><div class="seg" style="min-width:210px"><button class="${d.mode === 'duration' ? 'on' : ''}" data-a="log-mode" data-v="duration">Duration</button><button class="${d.mode === 'range' ? 'on' : ''}" data-a="log-mode" data-v="range">Start to end</button></div></div>
+  <div class="spread mt16"><span class="label">How much</span><div class="seg" style="min-width:210px"><button class="${d.mode === 'duration' ? 'on' : ''}" data-a="log-mode" data-v="duration">Duration</button><button class="${d.mode === 'range' ? 'on' : ''}" data-a="log-mode" data-v="range">Times</button></div></div>
   ${dur}
   <div class="row mt14" style="gap:10px;align-items:flex-start">
     <div class="grow"><div class="label">When</div>
