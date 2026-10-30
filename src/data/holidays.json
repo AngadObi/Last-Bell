@@ -1,0 +1,471 @@
+{
+ "fetchedAt": "2026-10-30",
+ "regions": {
+  "DE-HH": {
+   "label": "Hamburg",
+   "country": "DE",
+   "source": "Freie und Hansestadt Hamburg, Ferienordnung 2024/25 bis 2029/30 (hamburg.de)",
+   "coveredUntil": "2030-08-14",
+   "periods": [
+    {
+     "id": "hh-2025-herbst",
+     "name": "Autumn holidays",
+     "from": "2025-10-20",
+     "to": "2025-10-31",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2025-weihnacht",
+     "name": "Christmas holidays",
+     "from": "2025-12-17",
+     "to": "2026-01-02",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2026-pause",
+     "name": "Mid-year break",
+     "from": "2026-01-30",
+     "to": "2026-01-30",
+     "kind": "pause"
+    },
+    {
+     "id": "hh-2026-fruehjahr",
+     "name": "Spring holidays",
+     "from": "2026-03-02",
+     "to": "2026-03-13",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2026-pfingst",
+     "name": "Ascension and Whitsun break",
+     "from": "2026-05-11",
+     "to": "2026-05-15",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2026-sommer",
+     "name": "Summer holidays",
+     "from": "2026-07-09",
+     "to": "2026-08-19",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2026-herbst",
+     "name": "Autumn holidays",
+     "from": "2026-10-19",
+     "to": "2026-10-30",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2026-weihnacht",
+     "name": "Christmas holidays",
+     "from": "2026-12-21",
+     "to": "2027-01-01",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2027-pause",
+     "name": "Mid-year break",
+     "from": "2027-01-29",
+     "to": "2027-01-29",
+     "kind": "pause"
+    },
+    {
+     "id": "hh-2027-fruehjahr",
+     "name": "Spring holidays",
+     "from": "2027-03-01",
+     "to": "2027-03-12",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2027-pfingst",
+     "name": "Ascension and Whitsun break",
+     "from": "2027-05-07",
+     "to": "2027-05-14",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2027-sommer",
+     "name": "Summer holidays",
+     "from": "2027-07-01",
+     "to": "2027-08-11",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2027-herbst",
+     "name": "Autumn holidays",
+     "from": "2027-10-11",
+     "to": "2027-10-22",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2027-weihnacht",
+     "name": "Christmas holidays",
+     "from": "2027-12-20",
+     "to": "2027-12-31",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2028-pause",
+     "name": "Mid-year break",
+     "from": "2028-01-28",
+     "to": "2028-01-28",
+     "kind": "pause"
+    },
+    {
+     "id": "hh-2028-fruehjahr",
+     "name": "Spring holidays",
+     "from": "2028-03-06",
+     "to": "2028-03-17",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2028-pfingst",
+     "name": "Ascension and Whitsun break",
+     "from": "2028-05-22",
+     "to": "2028-05-26",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2028-sommer",
+     "name": "Summer holidays",
+     "from": "2028-07-03",
+     "to": "2028-08-11",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2028-herbst",
+     "name": "Autumn holidays",
+     "from": "2028-10-02",
+     "to": "2028-10-13",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2028-brueck",
+     "name": "Bridge day",
+     "from": "2028-10-30",
+     "to": "2028-10-30",
+     "kind": "bridge"
+    },
+    {
+     "id": "hh-2028-weihnacht",
+     "name": "Christmas holidays",
+     "from": "2028-12-18",
+     "to": "2028-12-29",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2029-pause",
+     "name": "Mid-year break",
+     "from": "2029-02-02",
+     "to": "2029-02-02",
+     "kind": "pause"
+    },
+    {
+     "id": "hh-2029-fruehjahr",
+     "name": "Spring holidays",
+     "from": "2029-03-05",
+     "to": "2029-03-16",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2029-pfingst",
+     "name": "Ascension and Whitsun break",
+     "from": "2029-05-11",
+     "to": "2029-05-18",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2029-sommer",
+     "name": "Summer holidays",
+     "from": "2029-07-02",
+     "to": "2029-08-10",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2029-herbst",
+     "name": "Autumn holidays",
+     "from": "2029-10-01",
+     "to": "2029-10-12",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2029-weihnacht",
+     "name": "Christmas holidays",
+     "from": "2029-12-21",
+     "to": "2030-01-04",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2030-pause",
+     "name": "Mid-year break",
+     "from": "2030-02-01",
+     "to": "2030-02-01",
+     "kind": "pause"
+    },
+    {
+     "id": "hh-2030-fruehjahr",
+     "name": "Spring holidays",
+     "from": "2030-03-04",
+     "to": "2030-03-15",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2030-pfingst",
+     "name": "Ascension and Whitsun break",
+     "from": "2030-05-20",
+     "to": "2030-05-24",
+     "kind": "holiday"
+    },
+    {
+     "id": "hh-2030-brueck",
+     "name": "Bridge day",
+     "from": "2030-05-31",
+     "to": "2030-05-31",
+     "kind": "bridge"
+    },
+    {
+     "id": "hh-2030-sommer",
+     "name": "Summer holidays",
+     "from": "2030-07-04",
+     "to": "2030-08-14",
+     "kind": "holiday"
+    }
+   ]
+  },
+  "NL-noord": {
+   "label": "North",
+   "country": "NL",
+   "source": "Rijksoverheid, schoolvakanties 2026-2027 and 2027-2028 (government.nl)",
+   "coveredUntil": "2028-08-27",
+   "periods": [
+    {
+     "id": "nl-noord-0",
+     "name": "Autumn holidays",
+     "from": "2026-10-10",
+     "to": "2026-10-18",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-noord-1",
+     "name": "Christmas holidays",
+     "from": "2026-12-19",
+     "to": "2027-01-03",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-noord-2",
+     "name": "Spring holidays",
+     "from": "2027-02-20",
+     "to": "2027-02-28",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-noord-3",
+     "name": "May holidays",
+     "from": "2027-04-24",
+     "to": "2027-05-02",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-noord-4",
+     "name": "Summer holidays",
+     "from": "2027-07-10",
+     "to": "2027-08-22",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-noord-5",
+     "name": "Autumn holidays",
+     "from": "2027-10-16",
+     "to": "2027-10-24",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-noord-6",
+     "name": "Christmas holidays",
+     "from": "2027-12-25",
+     "to": "2028-01-09",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-noord-7",
+     "name": "Spring holidays",
+     "from": "2028-02-19",
+     "to": "2028-02-27",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-noord-8",
+     "name": "May holidays",
+     "from": "2028-04-29",
+     "to": "2028-05-07",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-noord-9",
+     "name": "Summer holidays",
+     "from": "2028-07-15",
+     "to": "2028-08-27",
+     "kind": "holiday"
+    }
+   ]
+  },
+  "NL-midden": {
+   "label": "Central",
+   "country": "NL",
+   "source": "Rijksoverheid, schoolvakanties 2026-2027 and 2027-2028 (government.nl)",
+   "coveredUntil": "2028-08-20",
+   "periods": [
+    {
+     "id": "nl-midden-0",
+     "name": "Autumn holidays",
+     "from": "2026-10-17",
+     "to": "2026-10-25",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-midden-1",
+     "name": "Christmas holidays",
+     "from": "2026-12-19",
+     "to": "2027-01-03",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-midden-2",
+     "name": "Spring holidays",
+     "from": "2027-02-20",
+     "to": "2027-02-28",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-midden-3",
+     "name": "May holidays",
+     "from": "2027-04-24",
+     "to": "2027-05-02",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-midden-4",
+     "name": "Summer holidays",
+     "from": "2027-07-17",
+     "to": "2027-08-29",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-midden-5",
+     "name": "Autumn holidays",
+     "from": "2027-10-16",
+     "to": "2027-10-24",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-midden-6",
+     "name": "Christmas holidays",
+     "from": "2027-12-25",
+     "to": "2028-01-09",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-midden-7",
+     "name": "Spring holidays",
+     "from": "2028-02-26",
+     "to": "2028-03-05",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-midden-8",
+     "name": "May holidays",
+     "from": "2028-04-29",
+     "to": "2028-05-07",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-midden-9",
+     "name": "Summer holidays",
+     "from": "2028-07-08",
+     "to": "2028-08-20",
+     "kind": "holiday"
+    }
+   ]
+  },
+  "NL-zuid": {
+   "label": "South",
+   "country": "NL",
+   "source": "Rijksoverheid, schoolvakanties 2026-2027 and 2027-2028 (government.nl)",
+   "coveredUntil": "2028-09-03",
+   "periods": [
+    {
+     "id": "nl-zuid-0",
+     "name": "Autumn holidays",
+     "from": "2026-10-17",
+     "to": "2026-10-25",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-zuid-1",
+     "name": "Christmas holidays",
+     "from": "2026-12-19",
+     "to": "2027-01-03",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-zuid-2",
+     "name": "Spring holidays",
+     "from": "2027-02-13",
+     "to": "2027-02-21",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-zuid-3",
+     "name": "May holidays",
+     "from": "2027-04-24",
+     "to": "2027-05-02",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-zuid-4",
+     "name": "Summer holidays",
+     "from": "2027-07-24",
+     "to": "2027-09-05",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-zuid-5",
+     "name": "Autumn holidays",
+     "from": "2027-10-23",
+     "to": "2027-10-31",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-zuid-6",
+     "name": "Christmas holidays",
+     "from": "2027-12-25",
+     "to": "2028-01-09",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-zuid-7",
+     "name": "Spring holidays",
+     "from": "2028-02-26",
+     "to": "2028-03-05",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-zuid-8",
+     "name": "May holidays",
+     "from": "2028-04-29",
+     "to": "2028-05-07",
+     "kind": "holiday"
+    },
+    {
+     "id": "nl-zuid-9",
+     "name": "Summer holidays",
+     "from": "2028-07-22",
+     "to": "2028-09-03",
+     "kind": "holiday"
+    }
+   ]
+  }
+ }
+}
