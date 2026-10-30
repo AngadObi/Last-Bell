@@ -1,5 +1,5 @@
 // Last Bell service worker: app shell works offline, and new versions take over by themselves.
-const CACHE = 'lastbell-shell-v1';
+const CACHE = 'lastbell-shell-v2';
 self.addEventListener('install', (e) => { self.skipWaiting(); });
 self.addEventListener('activate', (e) => {
   e.waitUntil((async () => {

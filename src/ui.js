@@ -11,7 +11,7 @@ export const POSES = {
   curious: 'Madam Chonk looking curious', triumphant: 'Madam Chonk looking triumphant',
 };
 const FILE = { cozy: 'cozy-reading' };
-export const pose = (name, style = '', cls = '') => `<img class="${cls}" src="${base}poses/${FILE[name] || name}.png" alt="${esc(POSES[name] || 'Madam Chonk')}" style="${style}">`;
+export const pose = (name, style = '', cls = '') => `<img class="${cls}" src="${base}poses/${FILE[name] || name}.webp" alt="${esc(POSES[name] || 'Madam Chonk')}" style="${style}">`;
 
 const S = (d, w = 2, size = 24) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
 export const ICON = {
