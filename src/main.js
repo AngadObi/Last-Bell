@@ -122,6 +122,9 @@ const A = {
   },
   'contract-save': () => { saveSettings({ contractMin: sh().value }); closeSheet(); toast('Contract updated. Check that your week still adds up.'); },
   country: (el) => saveDraft({ country: el.dataset.v, region: REGIONS[el.dataset.v][0].key }),
+  'skip-week': () => ui({ skipAsk: true }),
+  'skip-cancel': () => ui({ skipAsk: false }),
+  'skip-confirm': () => { ui({ skipAsk: false }); setStep(3); },
   'open-day': (el) => ui({ openDay: state.ui.openDay === Number(el.dataset.v) ? null : Number(el.dataset.v) }),
   'plan-step': (el) => {
     const p = planTarget()[el.dataset.day]; const f = el.dataset.f; const d = Number(el.dataset.v);

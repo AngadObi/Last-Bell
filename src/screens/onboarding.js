@@ -109,7 +109,9 @@ export function step2() {
       <p class="sub">Per day: hours of lessons and hours of work outside class. The break and start time are secondary. The week has to add up to your contract.</p></div>
     ${pose('planning', 'width:84px;height:90px;object-fit:contain;flex-shrink:0')}
   </div>
-  ${weekEditor(s.plan, s.contractMin, state.ui.openDay)}`, { foot: nextFoot('Next: time off', 3, !ok, 1) });
+  ${weekEditor(s.plan, s.contractMin, state.ui.openDay)}`, { foot: state.ui.skipAsk
+    ? `<div class="note" style="margin:0 4px 10px;transform:none">Skip for now? You won't be able to use the app until you add your weekly hours in the Staffroom.</div><button class="btn" data-a="skip-confirm">Skip anyway</button><div class="center"><button class="link" data-a="skip-cancel">Go back and add them</button></div>`
+    : `${nextFoot('Next: time off', 3, !ok)}<div class="center"><button class="link" data-a="skip-week">I don't know my hours yet. Skip</button> <button class="link" data-a="step" data-v="1">Back</button></div>` });
 }
 
 export function step3() {
@@ -153,7 +155,7 @@ export function step4() {
 
 const answerChips = (s) => {
   const on = [1, 2, 3, 4, 5, 6, 7].filter((n) => s.plan[n].on);
-  const label = on.length === 5 ? 'Mon to Fri plan' : `${on.length}-day plan`;
+  const label = planTotal(s.plan) !== s.contractMin ? 'Week: add later' : on.length === 5 ? 'Mon to Fri plan' : `${on.length}-day plan`;
   return [fmtShort(s.contractMin) + ' per week', regionLabel(s.region).split(',')[0], label, 'Holidays', (TONES.find((t) => t.id === s.tone) || {}).name + ' tone'];
 };
 

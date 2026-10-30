@@ -1,6 +1,6 @@
 import { esc, pose, ICON, shelf } from '../ui.js';
 import { state, ctx, catName } from '../lib/store.js';
-import { dayModel, weekSummary, currentTerm } from '../lib/calc.js';
+import { dayModel, planTotal, weekSummary, currentTerm } from '../lib/calc.js';
 import { fmtLong, fmtShort, fmtClock, fmtSigned, dayShort, dayLong, dayMonthLong, isoWeek, toMin, addDays, diffDays, nowMinutes, weekStart, parse, monthName } from '../lib/dates.js';
 import { pick } from '../lib/lines.js';
 import { periodsFor, publicHolidays, getData } from '../lib/holidays.js';
@@ -68,7 +68,7 @@ export function home() {
   else if (tm.isOver) { moment = 'over'; poseName = 'overwhelmed'; }
   else { moment = 'after'; poseName = 'smug'; }
   const heavy = wk.surplus >= 300 || (tm.planned && tm.logged >= tm.planned + 90);
-  const line = pick({ tone: s.tone, kind: s.kind, heavy, moment, seed: today });
+  const line = planTotal(s.plan) === 0 ? 'Give me your hours first. Then I can start supervising you.' : pick({ tone: s.tone, kind: s.kind, heavy, moment, seed: today });
   if (heavy && s.kind && moment === 'over') poseName = 'loving';
 
   // Board
@@ -78,8 +78,11 @@ export function home() {
   const bankTxt = wk.bank > 0 ? fmtSigned(wk.bank) : '0h';
 
   // Today card
+  const noPlan = planTotal(s.plan) === 0;
   let todayCard = '';
-  if (working) {
+  if (planTotal(s.plan) !== s.contractMin) {
+    todayCard = `<div class="card mx mt12" style="padding:14px 16px"><div class="eyebrow">ONE THING FIRST</div><div class="title" style="font-size:32px;line-height:1.1;margin-top:4px">I need your weekly hours.</div><div class="sub" style="margin-top:6px">Your week does not add up to ${fmtShort(s.contractMin)} yet. Until it does, I cannot count anything.</div><button class="btn mt12" data-a="sheet" data-v="plan">Add my weekly hours</button></div>`;
+  } else if (working) {
     const left = end - now;
     const status = now < start ? `Starts at ${plan.start}` : left > 0 ? `${fmtLong(left)} until the bell` : 'The bell has gone';
     const scale = Math.max(8, Math.ceil(Math.max(tm.planned, tm.logged) / 60));
@@ -136,7 +139,7 @@ export function home() {
       <div class="note" style="position:absolute;left:20px;top:26px;width:206px;transform:rotate(-1.5deg)"><div class="tape"></div><div style="position:absolute;right:-6px;top:34px;width:14px;height:14px;background:var(--note);transform:rotate(45deg)"></div>${esc(line)}</div>
       ${pose(poseName, 'position:absolute;right:18px;top:0;width:128px;height:118px;object-fit:contain')}
     </div>
-    <div class="board mx" style="margin:0 14px;z-index:2">
+    ${noPlan ? '' : `<div class="board mx" style="margin:0 14px;z-index:2">
       <div class="spread" style="font-size:11px;font-weight:800;letter-spacing:.14em;color:#F2EBDA"><span>THIS WEEK · WEEK ${isoWeek(today)}</span><span style="font-weight:700;color:#E3DCC8">CONTRACT ${fmtShort(s.contractMin).toUpperCase()}</span></div>
       <div class="spread mt4" style="align-items:flex-end;margin-top:2px">
         <div style="display:flex;align-items:baseline;gap:2px;font-family:'Caveat Brush',cursive;color:#FBF6EA"><span style="font-size:76px;line-height:.95">${hrs}</span><span style="font-size:30px">h${mins ? ' ' + mins : ''} logged</span></div>
@@ -144,9 +147,9 @@ export function home() {
       <div class="chalk-bar" style="margin-top:8px"><div style="width:${pct}%"></div></div>
       <div class="spread" style="margin-top:9px"><span style="font-size:11px;font-weight:800;letter-spacing:.14em;color:#F2EBDA">OVERTIME BANK</span>
         <button data-a="sheet" data-v="takeback" class="stamp-sm" style="background:transparent;cursor:pointer" aria-label="Overtime bank ${bankTxt}. Take it back">${bankTxt}</button></div>
-    </div>
+    </div>`}
     ${todayCard}${nudge}
-    <div class="row mx mt12" style="gap:10px">
+    ${noPlan ? '' : `<div class="row mx mt12" style="gap:10px">
       <button class="btn" data-a="sheet" data-v="log" style="flex:1;min-width:0;gap:12px">${ICON.pencil()}<span style="display:flex;flex-direction:column;align-items:flex-start;line-height:1.1"><span style="font-size:18px">Log hours</span><span style="font-size:12px;font-weight:700;opacity:.9">prep, admin, parents</span></span></button>
       <button class="chip" data-a="focus" aria-label="Start a ${s.bell.focus} minute focus session" style="width:92px;height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:12px;border-radius:18px">${ICON.bell(22)}Focus ${s.bell.focus}</button>
     </div>
@@ -158,7 +161,7 @@ export function home() {
           <span class="row" style="gap:6px"><i style="width:14px;height:9px;border-radius:2px;background:var(--over)"></i>over plan</span></div></div>
       <div class="grow dayrow">${cols}</div>
     </div>
-    ${timeOffStrip(s, today, tm)}
+    ${timeOffStrip(s, today, tm)}`}
   </div>
   ${shelf('desk')}</div>`;
 }

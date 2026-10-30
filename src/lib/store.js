@@ -86,7 +86,7 @@ export function setStep(step) {
 
 // ---- boot ----
 export async function boot(b) {
-  backend = b || (DEMO ? makeDemoBackend({ seeded: !params.has('empty'), today: state.today, initialDoc: { settings: { ...defaultSettings(), plan: SAMPLE_PLAN(), onboarded: true, startDate: addDays(weekStart(state.today), -35) }, days: {}, ackTerms: {}, createdAt: Date.now(), email: 'you@school.de' } }) : (await import('./backend-firebase.js')).backend);
+  backend = b || (DEMO ? makeDemoBackend({ seeded: !params.has('empty'), today: state.today, initialDoc: { settings: { ...defaultSettings(), plan: params.has('noplan') ? DEFAULT_PLAN() : SAMPLE_PLAN(), onboarded: true, startDate: addDays(weekStart(state.today), -35) }, days: {}, ackTerms: {}, createdAt: Date.now(), email: 'you@school.de' } }) : (await import('./backend-firebase.js')).backend);
   draftSettings();
   state.ui.onboard = state.draft.step === 'account' || state.draft.step === 'signin' ? state.draft.step : state.draft.step || 'intro';
   backend.start(async (user) => {
