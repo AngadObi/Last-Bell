@@ -30,7 +30,7 @@ export function staffroom() {
 }
 
 export const contractSheet = (d) => sheetShell('Hours per week', 'Your contract. Changing it means fitting your real week to the new total.', `
-  <div class="card mt14" style="padding:14px 16px"><div class="spread"><button class="round" data-a="contract" data-v="-30" aria-label="30 minutes less">-</button><div class="title" style="font-size:68px;white-space:nowrap">${fmtShort(d.value)}</div><button class="round" data-a="contract" data-v="30" aria-label="30 minutes more">+</button></div></div>`, { foot: `<button class="btn" data-a="contract-save">Save</button>` });
+  <div class="card mt14" style="padding:14px 16px"><div class="spread"><button class="round" data-a="contract" data-v="-15" aria-label="15 minutes less">-</button><div class="title" style="font-size:68px;white-space:nowrap">${fmtShort(d.value)}</div><button class="round" data-a="contract" data-v="15" aria-label="15 minutes more">+</button></div></div>`, { foot: `<button class="btn" data-a="contract-save">Save</button>` });
 
 export const planSheet = (d) => {
   const ok = planTotal(d.plan) === d.contractMin;

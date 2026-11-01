@@ -47,7 +47,7 @@ export function step1() {
   <div class="note" style="margin:12px 6px 0;transform:rotate(-1deg)">Contract says ${fmtShort(s.contractMin)}? Brave of them.</div>
   <div class="card mt14" style="padding:14px 16px 16px">
     <div class="eyebrow">Hours per week</div>
-    <div class="spread mt8"><button class="round" data-a="contract" data-v="-30" aria-label="30 minutes less">-</button><div class="title" style="font-size:68px;white-space:nowrap">${fmtShort(s.contractMin)}</div><button class="round" data-a="contract" data-v="30" aria-label="30 minutes more">+</button></div>
+    <div class="spread mt8"><button class="round" data-a="contract" data-v="-15" aria-label="15 minutes less">-</button><div class="title" style="font-size:68px;white-space:nowrap">${fmtShort(s.contractMin)}</div><button class="round" data-a="contract" data-v="15" aria-label="15 minutes more">+</button></div>
     <p class="sub center mt8" style="font-size:13px">In steps of 30 min. You can change it later in the staffroom.</p>
   </div>
   <div class="card mt12" style="padding:14px 16px 16px">
