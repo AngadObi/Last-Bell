@@ -19,7 +19,7 @@ export function intro() {
     <p class="center" style="margin:10px 24px 0;font-size:16px;line-height:1.4;font-weight:700;color:var(--ink3)">I will be supervising your working hours. Please do not take it personally.</p>
     <div class="card flat mt20" style="width:100%;padding-top:4px;padding-bottom:4px">
       ${[
-        ['#DDE8DD', '#3F5C48', ICON.monitor(), 'Lessons log themselves from your timetable.'],
+        ['#DDE8DD', '#3F5C48', ICON.monitor(), 'School hours log themselves from your timetable.'],
         ['#DDE8F5', '#3E5F8F', ICON.pencil(24), "Prep, marking and admin, you log yourself. I will notice if you don't."],
         ['#FBF1D6', '#3B2F24', ICON.bell(24), 'I count the overtime. And I will mention it.'],
       ].map(([bg, c, i, t]) => `<div class="lrow" style="gap:14px;min-height:64px"><span style="flex-shrink:0;width:40px;height:40px;border-radius:12px;background:${bg};color:${c};display:flex;align-items:center;justify-content:center">${i}</span><span style="font-size:15px;line-height:1.3;font-weight:700">${t}</span></div>`).join('')}
@@ -75,8 +75,8 @@ export function weekEditor(plan, contractMin, openDay) {
       <div class="spread"><div class="title" style="font-size:30px">${lab}</div><div class="title" style="font-size:24px;white-space:nowrap">${fmtShort(w)}</div></div>
       <div style="display:flex;height:10px;border-radius:5px;overflow:hidden;margin-top:6px;background:#F3E2B8">
         <div style="width:${w ? les / w * 100 : 0}%;background:var(--lesson)"></div><div style="width:${w ? prep / w * 100 : 0}%;background:var(--prep)"></div></div>
-      ${step('lessonMin', 15, '<i class="dot" style="background:var(--lesson)"></i> Lessons', fmtLong(les))}
-      ${step('prepMin', 15, '<i class="dot" style="background:var(--prep)"></i> Outside class', fmtLong(prep))}
+      ${step('lessonMin', 15, '<i class="dot" style="background:var(--lesson)"></i> School hours', fmtLong(les))}
+      ${step('prepMin', 15, '<i class="dot" style="background:var(--prep)"></i> Office hours', fmtLong(prep))}
       <button data-a="open-day" data-v="${n}" style="display:flex;justify-content:space-between;width:100%;min-height:40px;align-items:center;border:0;border-top:1px solid var(--hair);background:transparent;padding:0;font-size:12px;font-weight:700;color:var(--ink3)" aria-expanded="${open}"><span>${p.start} to ${p.end} · break ${p.breakMin} min</span><span style="text-decoration:underline">${open ? 'Done' : 'Times and break'}</span></button>
       ${open ? `<div style="padding:4px 0 10px">
         <div class="spread" style="min-height:48px"><span style="font-size:14px;font-weight:800">Starts at</span><input class="time" type="time" value="${p.start}" data-c="plan" data-day="${n}" data-f="start" aria-label="${lab} start"></div>
@@ -90,7 +90,7 @@ export function weekEditor(plan, contractMin, openDay) {
   return `
   <div class="board sm mt12" style="display:flex;align-items:center;justify-content:space-between">
     <div class="grow">
-      <div style="display:flex;align-items:baseline;gap:8px;font-family:'Caveat Brush',cursive;line-height:1"><span style="font-size:30px">${fmtShort(total)} of ${fmtShort(contractMin)}</span><span style="font-size:22px;color:#F4CC55">${ok ? 'all hours placed' : diff > 0 ? fmtShort(diff) + ' to place' : fmtShort(-diff) + ' too many'}</span></div>
+      <div style="font-family:'Caveat Brush',cursive;line-height:1;white-space:nowrap"><div style="font-size:30px;height:30px">${fmtShort(total)} of ${fmtShort(contractMin)}</div><div style="font-size:22px;height:24px;margin-top:2px;color:#F4CC55">${ok ? 'all hours placed' : diff > 0 ? fmtShort(diff) + ' to place' : fmtShort(-diff) + ' too many'}</div></div>
       <div class="chalk-bar mt8" style="height:10px;border-radius:8px"><div style="width:${Math.min(100, total / contractMin * 100)}%"></div></div>
     </div>
     ${ok ? `<div style="margin-left:14px;width:34px;height:34px;border-radius:50%;background:#F4CC55;color:var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0">${ICON.check(20)}</div>` : ''}
@@ -106,7 +106,7 @@ export function step2() {
   <div class="hdr tight" style="align-items:flex-end;padding:0 6px">
     <div class="grow" style="padding-bottom:6px"><div class="eyebrow">First day · Step 2 of 4</div>
       <h1 class="title t40" style="margin:4px 0 6px">Your real week</h1>
-      <p class="sub">Per day: hours of lessons and hours of work outside class. The break and start time are secondary. The week has to add up to your contract.</p></div>
+      <p class="sub">Per day: school hours and office hours. The break and start time are secondary. The week has to add up to your contract.</p></div>
     ${pose('planning', 'width:84px;height:90px;object-fit:contain;flex-shrink:0')}
   </div>
   ${weekEditor(s.plan, s.contractMin, state.ui.openDay)}`, { foot: state.ui.skipAsk

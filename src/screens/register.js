@@ -116,7 +116,7 @@ export function register() {
   const ovLabel = (m) => { const o = m.override; if (!o || !o.kind) return 'From your timetable'; if (o.kind === 'none') return { sick: 'Sick day, counted as planned', trip: 'Trip, counted as worked', event: 'School event, counted as worked' }[o.sub || 'sick']; return o.kind === 'extra' ? 'Extra lessons, changed by you' : 'Changed from your timetable'; };
   const entries = list.map((m) => `
     <div class="title" style="font-size:22px;margin-top:12px">${m.date === today ? 'Today, ' + dayShort(m.date) + ' ' + dayMonth(m.date) : dayLong(m.date) + ' ' + dayMonth(m.date)}</div>
-    ${m.lessons || m.credit ? `<button class="lrow" data-a="sheet" data-v="notplanned" data-d="${m.date}" style="min-height:56px"><i class="dot" style="background:var(--lesson);width:12px;height:12px"></i><span class="grow"><span style="display:block;font-size:15px;font-weight:800">Lessons</span><span class="sub2">${esc(ovLabel(m))}</span></span><span style="font-size:15px;font-weight:800">${fmtLong(m.lessons + m.credit)}</span>${ICON.chev()}</button>` : ''}
+    ${m.lessons || m.credit ? `<button class="lrow" data-a="sheet" data-v="notplanned" data-d="${m.date}" style="min-height:56px"><i class="dot" style="background:var(--lesson);width:12px;height:12px"></i><span class="grow"><span style="display:block;font-size:15px;font-weight:800">School hours</span><span class="sub2">${esc(ovLabel(m))}</span></span><span style="font-size:15px;font-weight:800">${fmtLong(m.lessons + m.credit)}</span>${ICON.chev()}</button>` : ''}
     ${m.entries.map((e) => `<button class="lrow" data-a="edit-entry" data-v="${e.id}" style="min-height:56px"><i class="dot" style="background:var(--prep);width:12px;height:12px"></i><span class="grow"><span style="display:block;font-size:15px;font-weight:800">${esc(catName(e.cat))}</span><span class="sub2">${e.source === 'bell' ? 'Focus timer' : e.where === 'home' ? 'Home' : 'School'}${e.start && e.end ? `, ${e.start} to ${e.end}` : ''}${e.note ? ' · ' + esc(e.note) : ''}</span></span><span style="font-size:15px;font-weight:800">${fmtLong(e.minutes)}</span>${ICON.chev()}</button>`).join('')}`).join('');
 
   const navDisabled = off >= 0;
@@ -131,15 +131,15 @@ export function register() {
       <div class="title" style="font-size:30px;line-height:1.1;margin-top:8px">${esc(line)}</div>
       <div class="row mt12" style="gap:8px;flex-wrap:wrap"><span class="pill gold">Over plan ${agg.daysOver} of ${nWork} days</span><span class="pill green">On time ${agg.daysOnTime} days</span></div></div>
     <div class="card mx mt12" style="padding:14px 16px 12px"><div class="eyebrow">${mode === 'week' ? 'Day by day' : 'Week by week'}</div>${bars}
-      <div class="row mt12" style="gap:14px;font-size:12px;font-weight:700;color:var(--ink3);flex-wrap:wrap"><span class="row" style="gap:6px"><i class="dot" style="background:var(--lesson)"></i>Lessons</span><span class="row" style="gap:6px"><i class="dot" style="background:var(--prep)"></i>Outside class</span><span class="row" style="gap:6px"><i class="dot" style="background:var(--over)"></i>Over plan</span></div></div>
+      <div class="row mt12" style="gap:14px;font-size:12px;font-weight:700;color:var(--ink3);flex-wrap:wrap"><span class="row" style="gap:6px"><i class="dot" style="background:var(--lesson)"></i>School hours</span><span class="row" style="gap:6px"><i class="dot" style="background:var(--prep)"></i>Office hours</span><span class="row" style="gap:6px"><i class="dot" style="background:var(--over)"></i>Over plan</span></div></div>
     <div class="row mx mt12" style="gap:8px;align-items:stretch">
-      <div class="card grow" style="padding:10px 12px"><div class="title" style="font-size:30px">${fmtShort(agg.lessons)}</div><div class="label" style="font-size:10px;letter-spacing:.1em">Lessons</div></div>
-      <div class="card grow" style="padding:10px 12px"><div class="title" style="font-size:30px">${fmtShort(agg.other)}</div><div class="label" style="font-size:10px;letter-spacing:.1em">Outside class</div></div>
+      <div class="card grow" style="padding:10px 12px"><div class="title" style="font-size:30px">${fmtShort(agg.lessons)}</div><div class="label" style="font-size:10px;letter-spacing:.1em">School hours</div></div>
+      <div class="card grow" style="padding:10px 12px"><div class="title" style="font-size:30px">${fmtShort(agg.other)}</div><div class="label" style="font-size:10px;letter-spacing:.1em">Office hours</div></div>
       <button class="grow" data-a="sheet" data-v="takeback" style="border:0;border-radius:18px;background:var(--board);color:#FBF6EA;padding:10px 12px;text-align:left"><div class="title" style="font-size:30px;color:#FFD98A">${agg.over > 0 ? '+' + fmtShort(agg.over) : '0h'}</div><div class="label" style="font-size:10px;letter-spacing:.1em;color:#F2EBDA">Overtime</div></button></div>
     <div class="card mx mt12" style="padding:14px 16px 12px"><div class="eyebrow">Overtime bank, last 8 weeks</div>
       <div class="row mt12" style="gap:6px;align-items:flex-end;height:80px">${chart}</div>
       <div class="sub mt8" style="font-size:13px;font-weight:700">${bankNote} Now ${wsum.bank > 0 ? fmtSigned(wsum.bank) : '0h'}.</div></div>
     <div class="card mx mt12" style="padding:14px 16px 6px"><div class="eyebrow">Entries</div>${entries || '<p class="sub mt8" style="padding-bottom:10px">Nothing logged in this period yet.</p>'}
-      <p class="sub" style="font-size:12px;padding:10px 0 6px">Tap an entry to change it. Tap lessons if the day was not as planned.</p></div>
+      <p class="sub" style="font-size:12px;padding:10px 0 6px">Tap an entry to change it. Tap school hours if the day was not as planned.</p></div>
   </div>${shelf('register')}</div>`;
 }

@@ -109,7 +109,7 @@ export function home() {
         <div style="position:absolute;left:${Math.min(99.5, mark)}%;top:-7px;width:10px;height:10px;margin-left:-5px;background:var(--ink);border-radius:50%"></div>
         ${labels.join('')}</div>
       <div class="spread mt8" style="font-size:12px;font-weight:700;color:var(--ink3);flex-wrap:wrap;row-gap:0;white-space:nowrap">
-        <span class="row" style="gap:12px;white-space:nowrap"><span class="row" style="gap:5px"><i class="dot" style="background:var(--lesson)"></i>Lessons ${fmtShort(tm.lessons)}</span><span class="row" style="gap:6px"><i class="dot" style="background:var(--prep)"></i>Outside class ${fmtShort(tm.other)}</span></span>
+        <span class="row" style="gap:12px;white-space:nowrap"><span class="row" style="gap:5px"><i class="dot" style="background:var(--lesson)"></i>School hours ${fmtShort(tm.lessons)}</span><span class="row" style="gap:6px"><i class="dot" style="background:var(--prep)"></i>Outside class ${fmtShort(tm.other)}</span></span>
         <button data-a="sheet" data-v="notplanned" data-d="${today}" style="margin-left:auto;border:0;background:transparent;font-size:12px;font-weight:800;color:var(--ink3);text-decoration:underline;min-height:32px;padding:0">Not as planned?</button></div>
     </div>`;
   } else {
@@ -162,8 +162,8 @@ export function home() {
     <div class="card mx mt12 row" style="gap:10px;padding:10px 14px 8px;align-items:stretch">
       <div style="width:96px;flex-shrink:0;display:flex;flex-direction:column;justify-content:center;gap:8px"><div class="eyebrow">Day by day</div>
         <div style="display:flex;flex-direction:column;gap:3px;font-size:12px;font-weight:700;line-height:1.2;color:var(--ink2);padding-bottom:2px">
-          <span class="row" style="gap:6px"><i style="width:14px;height:9px;border-radius:2px;background:var(--lesson)"></i>lessons</span>
-          <span class="row" style="gap:6px"><i style="width:14px;height:9px;border-radius:2px;background:var(--prep)"></i>outside class</span>
+          <span class="row" style="gap:6px"><i style="width:14px;height:9px;border-radius:2px;background:var(--lesson)"></i>school hours</span>
+          <span class="row" style="gap:6px"><i style="width:14px;height:9px;border-radius:2px;background:var(--prep)"></i>office hours</span>
           <span class="row" style="gap:6px"><i style="width:14px;height:9px;border-radius:2px;background:var(--over)"></i>over plan</span></div></div>
       <div class="grow dayrow">${cols}</div>
     </div>

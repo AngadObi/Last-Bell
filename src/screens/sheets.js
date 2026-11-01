@@ -36,7 +36,7 @@ export function logSheet(d) {
     <div class="row mt8" style="gap:10px;justify-content:center"><input class="time" type="time" value="${d.start}" data-c="log-time" data-f="start" aria-label="Start"><span class="muted" style="font-weight:700">to</span><input class="time" type="time" value="${d.end}" data-c="log-time" data-f="end" aria-label="End"></div>
     <div class="title center mt8" style="font-size:48px">${mins ? fmtLong(mins) : 'End is before start'}</div>`;
   const body = `
-  ${lessons ? `<div class="row mt8" style="width:max-content;max-width:100%;gap:6px;background:#DDE8DD;color:#3F5C48;border-radius:10px;padding:5px 10px;font-size:13px;font-weight:800">${ICON.check(14)}Lessons ${d.date === today ? 'today' : 'that day'}, ${fmtShort(lessons)}, are already in</div>` : ''}
+  ${lessons ? `<div class="row mt8" style="width:max-content;max-width:100%;gap:6px;background:#DDE8DD;color:#3F5C48;border-radius:10px;padding:5px 10px;font-size:13px;font-weight:800">${ICON.check(14)}School hours ${d.date === today ? 'today' : 'that day'}, ${fmtShort(lessons)}, are already in</div>` : ''}
   <div class="label mt16">What kind of work</div>
   <div class="grid3 mt8">${tiles}</div>
   <div class="spread mt16"><span class="label">How much</span><div class="seg" style="min-width:210px"><button class="${d.mode === 'duration' ? 'on' : ''}" data-a="log-mode" data-v="duration">Duration</button><button class="${d.mode === 'range' ? 'on' : ''}" data-a="log-mode" data-v="range">Times</button></div></div>
@@ -69,19 +69,19 @@ export function npSheet(d) {
   const opt = (id, t, s) => `<button class="opt ${d.mode === id ? 'on' : ''}" data-a="np-mode" data-v="${id}"><span class="grow"><span style="display:block;font-size:15px;font-weight:800">${t}</span><span style="display:block;margin-top:2px;font-size:13px;font-weight:700;color:var(--ink3)">${s}</span></span><span class="r"></span></button>`;
   const diff = d.lessonMin - d.planned;
   const body = `
-  <div class="spread mt14" style="background:#DDE8DD;border-radius:16px;padding:10px 14px"><span style="font-size:14px;font-weight:700;color:#3F5C48">Planned for ${d.date === today ? 'today' : dayLong(d.date)}</span><span class="title" style="font-size:26px">Lessons ${fmtShort(d.planned)}</span></div>
+  <div class="spread mt14" style="background:#DDE8DD;border-radius:16px;padding:10px 14px"><span style="font-size:14px;font-weight:700;color:#3F5C48">Planned for ${d.date === today ? 'today' : dayLong(d.date)}</span><span class="title" style="font-size:26px">School hours ${fmtShort(d.planned)}</span></div>
   <div class="label mt16">What happened</div>
   <div class="mt8" style="display:flex;flex-direction:column;gap:8px">
-    ${opt('fewer', 'Fewer lessons than planned', 'Cancelled, swapped or dropped')}
-    ${opt('extra', 'Extra lessons', 'Cover for someone, or an added class')}
-    ${opt('none', 'No lessons that day', 'Sick, trip or school event')}</div>
+    ${opt('fewer', 'Fewer school hours than planned', 'Cancelled, swapped or dropped')}
+    ${opt('extra', 'Extra school hours', 'Cover for someone, or an added class')}
+    ${opt('none', 'No school hours that day', 'Sick, trip or school event')}</div>
   ${d.mode === 'none' ? `<div class="seg mt12">${[['sick', 'Sick'], ['trip', 'Trip'], ['event', 'School event']].map(([k, l]) => `<button class="${d.sub === k ? 'on' : ''}" data-a="np-sub" data-v="${k}">${l}</button>`).join('')}</div>` : `
-  <div class="label mt16">Lessons taught</div>
+  <div class="label mt16">School hours taught</div>
   <div class="spread mt4"><button class="round" data-a="np-step" data-v="-15" aria-label="15 minutes less">-</button><div class="title" style="font-size:60px;white-space:nowrap">${fmtShort(d.lessonMin)}</div><button class="round" data-a="np-step" data-v="15" aria-label="15 minutes more">+</button></div>
   <div class="center mt4" style="font-size:13px;font-weight:700;color:var(--ink2)">${diff === 0 ? 'Same as planned' : diff < 0 ? fmtLong(-diff) + ' fewer than planned' : fmtLong(diff) + ' more than planned'}</div>`}
   <div class="mt14" style="background:var(--cream);border-radius:14px;padding:10px 14px;font-size:13px;line-height:1.35;font-weight:700;color:var(--ink3)">A trip or school event counts as worked time. A sick day counts as planned hours, so it never shrinks your bank.</div>`;
-  const foot = `<button class="btn" data-a="np-save">Update ${d.date === today ? "today's" : dayLong(d.date) + "'s"} lessons</button>${d.had ? '<div class="center"><button class="link" data-a="np-reset">Back to my timetable</button></div>' : ''}`;
-  return sheetShell('Not as planned?', 'Lessons log themselves. Tell me what was different.', body, { foot });
+  const foot = `<button class="btn" data-a="np-save">Update ${d.date === today ? "today's" : dayLong(d.date) + "'s"} school hours</button>${d.had ? '<div class="center"><button class="link" data-a="np-reset">Back to my timetable</button></div>' : ''}`;
+  return sheetShell('Not as planned?', 'School hours log themselves. Tell me what was different.', body, { foot });
 }
 
 // ---------- Take it back ----------
@@ -152,6 +152,6 @@ export function aoSheet(d) {
   <div class="seg mt14">${types.map(([k, l]) => `<button class="${d.type === k ? 'on' : ''}" data-a="ao-type" data-v="${k}">${l}</button>`).join('')}</div>
   ${d.type === 'vacation' ? `<div class="label mt14">Name</div><input class="field mt6" placeholder="Skiing trip" value="${esc(d.label)}" data-c="ao-label" maxlength="40">` : ''}
   <div class="row mt14" style="gap:10px"><div class="grow"><div class="label">From</div><input class="field mt6" type="date" value="${d.from}" data-c="ao-from"></div><div class="grow"><div class="label">To</div><input class="field mt6" type="date" value="${d.to}" min="${d.from}" data-c="ao-to"></div></div>
-  <p class="sub mt12" style="font-size:13px">${d.type === 'vacation' ? 'Vacation days have no hours due and no lessons.' : d.type === 'sick' ? 'A sick day counts as planned hours, so it never shrinks your bank.' : 'A trip or school event counts as worked time.'}</p>`;
+  <p class="sub mt12" style="font-size:13px">${d.type === 'vacation' ? 'Vacation days have no hours due and no school hours.' : d.type === 'sick' ? 'A sick day counts as planned hours, so it never shrinks your bank.' : 'A trip or school event counts as worked time.'}</p>`;
   return sheetShell('Add a day off', '', body, { foot: `<button class="btn" data-a="ao-save">Add</button>` });
 }

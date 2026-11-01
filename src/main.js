@@ -190,7 +190,7 @@ const A = {
     if (d.mode === 'none') setDay(d.date, { kind: 'none', sub: d.sub, lessonMin: undefined });
     else if (d.lessonMin === d.planned) clearDayOverride(d.date);
     else setDay(d.date, { kind: d.lessonMin > d.planned ? 'extra' : 'fewer', lessonMin: d.lessonMin, sub: undefined });
-    closeSheet(); toast('Lessons updated.');
+    closeSheet(); toast('School hours updated.');
   },
   'np-reset': () => { clearDayOverride(sh().date); closeSheet(); toast('Back to your timetable.'); },
 
