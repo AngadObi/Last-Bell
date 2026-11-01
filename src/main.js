@@ -221,6 +221,7 @@ const A = {
 
   // register
   'reg-mode': (el) => ui({ regMode: el.dataset.v, regOffset: 0 }),
+  'reg-term': (el) => ui({ regMode: 'term', regOffset: Number(el.dataset.v) }),
   'reg-nav': (el) => { const n = state.ui.regOffset + Number(el.dataset.v); if (n <= 0) ui({ regOffset: n }); },
 
   // bell

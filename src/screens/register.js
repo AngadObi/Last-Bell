@@ -106,6 +106,24 @@ export function register() {
   const bankNote = delta > 5 ? `Growing by about ${fmtLong(Math.round(delta / 5) * 5)} a week.` : delta < -5 ? 'Shrinking. Good.' : 'Holding steady.';
   const chart = series.map((x, i) => `<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px"><div style="width:100%;max-width:30px;height:${Math.max(4, x.bank / maxB * 56)}px;border-radius:6px 6px 3px 3px;background:${i === series.length - 1 ? '#E8B93D' : '#DDCFAD'}"></div><div style="font-size:11px;font-weight:700;color:var(--ink2)">W${isoWeek(x.start)}</div></div>`).join('');
 
+  // Bank per term: every term she has data for, tap one to open it
+  const allTerms = buildTerms(s);
+  const curT = currentTerm(c);
+  const curIdx = allTerms.findIndex((t) => t.id === curT.id);
+  const hist = curIdx < 0 ? [] : allTerms.map((t, i) => ({ t, i })).filter(({ t }) => t.from <= today && (!s.startDate || t.to >= s.startDate)).map(({ t, i }) => ({ t, off: i - curIdx, st: (() => { const st = termStats(c, t); return t.id === curT.id ? { ...st, bank: wsum.bank } : st; })() }));
+  const maxTB = Math.max(60, ...hist.map((h) => h.st.bank));
+  const histRows = hist.slice().reverse().map((h) => {
+    const sel = mode === 'term' && h.off === off;
+    const live = h.t.to >= today;
+    return `<button class="lrow" data-a="reg-term" data-v="${h.off}" style="min-height:60px;flex-direction:column;align-items:stretch;justify-content:center;gap:5px;padding:8px 10px;border-radius:14px;border-bottom:0;${sel ? 'border:2px solid var(--lesson);background:#EEF4EE' : ''}">
+      <span class="row" style="justify-content:space-between;gap:8px"><span style="font-size:15px;font-weight:800">${esc(h.t.name)} ${esc(h.t.from.slice(0, 4))}${live ? ' <span style="font-weight:700;color:var(--ink3)">(so far)</span>' : ''}</span><span class="title" style="font-size:24px;line-height:1">${h.st.bank > 0 ? fmtSigned(h.st.bank) : '0h'}</span></span>
+      <span style="display:block;height:8px;border-radius:5px;background:#F3E2B8;overflow:hidden"><span style="display:block;height:100%;width:${Math.max(h.st.bank > 0 ? 4 : 0, h.st.bank / maxTB * 100)}%;background:var(--gold,#F0B93F)"></span></span>
+      <span style="font-size:12px;font-weight:700;color:var(--ink3)">${dayMonth(h.t.from)} to ${dayMonth(h.t.to)} · ${fmtShort(h.st.logged)} logged of ${fmtShort(h.st.due)} due · ${h.st.daysOver} ${h.st.daysOver === 1 ? 'day' : 'days'} over plan</span></button>`;
+  }).join('');
+  const termHist = hist.length ? `<div class="card mx mt12" style="padding:14px 16px 12px"><div class="eyebrow">Overtime bank by term</div>
+      <p class="sub mt8" style="font-size:12px;padding-bottom:4px">The bank starts again each term. What it was at the end of each one stays here.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">${histRows}</div></div>` : '';
+
   // Entries
   const list = [];
   for (let d = range.to > today ? today : range.to; d >= range.from && list.length < 14; d = addDays(d, -1)) {
@@ -139,6 +157,7 @@ export function register() {
     <div class="card mx mt12" style="padding:14px 16px 12px"><div class="eyebrow">Overtime bank, last 8 weeks</div>
       <div class="row mt12" style="gap:6px;align-items:flex-end;height:80px">${chart}</div>
       <div class="sub mt8" style="font-size:13px;font-weight:700">${bankNote} Now ${wsum.bank > 0 ? fmtSigned(wsum.bank) : '0h'}.</div></div>
+    ${termHist}
     <div class="card mx mt12" style="padding:14px 16px 6px"><div class="eyebrow">Entries</div>${entries || '<p class="sub mt8" style="padding-bottom:10px">Nothing logged in this period yet.</p>'}
       <p class="sub" style="font-size:12px;padding:10px 0 6px">Tap an entry to change it. Tap school hours if the day was not as planned.</p></div>
   </div>${shelf('register')}</div>`;
